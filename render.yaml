@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: papertrade-sim-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FMP_API_KEY
+        sync: false
+      - key: STARTING_CASH
+        value: "100000"
+      - key: DATABASE_URL
+        value: sqlite:///./sim_trading.db
+      - key: CORS_ORIGINS
+        sync: false
